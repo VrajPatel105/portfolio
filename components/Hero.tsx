@@ -5,8 +5,27 @@ import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
 const Hero = () => {
+  // Function to handle smooth scrolling
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    
+    // Find the about section element
+    const aboutSection = document.getElementById('about');
+    
+    if (aboutSection) {
+      // Scroll smoothly to the about section
+      aboutSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      
+      // Update URL without causing a page reload
+      window.history.pushState(null, '', '#about');
+    }
+  };
+
   return (
-    <div className="pb-20 pt-36">
+    <div className="pb-20 pt-36" id="home">
       {/**
        *  UI: Spotlights
        *  Link: https://ui.aceternity.com/components/spotlight
@@ -60,7 +79,7 @@ const Hero = () => {
             Hi! I&apos;m Adrian, a Next.js Developer based in Croatia.
           </p>
 
-          <a href="#about">
+          <a href="#about" onClick={handleScroll}>
             <MagicButton
               title="Show my work"
               icon={<FaLocationArrow />}

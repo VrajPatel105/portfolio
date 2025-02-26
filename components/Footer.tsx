@@ -2,8 +2,23 @@ import { FaLocationArrow } from "react-icons/fa6";
 
 import { socialMedia } from "@/data";
 import MagicButton from "./MagicButton";
+import { smoothScrollTo } from "@/lib/scrollUtils";
 
 const Footer = () => {
+  // Function to handle scroll to top
+  const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    
+    // Scroll to top of the page
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    
+    // Update URL by removing the hash
+    window.history.pushState(null, '', window.location.pathname);
+  };
+
   return (
     <footer className="w-full pt-20 pb-10" id="contact">
       {/* background grid */}
@@ -48,6 +63,16 @@ const Footer = () => {
           ))}
         </div>
       </div>
+      
+      {/* Add a "back to top" link that's visually hidden but functional */}
+      <a 
+        href="#" 
+        onClick={handleScrollToTop}
+        className="fixed bottom-6 right-6 w-12 h-12 bg-black-200 rounded-full flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
+        aria-label="Back to top"
+      >
+        <FaLocationArrow className="transform rotate-315" />
+      </a>
     </footer>
   );
 };
